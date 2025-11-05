@@ -1,0 +1,380 @@
+TRBAJO DE PRACTICA
+
+
+TOMAS ESTEBAN GONZALEZ QUINTERO
+
+
+
+P3
+
+
+
+PEDRO FELIPE GÓMEZ BONILLA
+
+
+
+CAMPUSLANDS
+APOLO
+            RUTA JAVA
+BUCARAMANGA
+2025
+
+
+
+
+
+
+
+
+
+
+INDICE
+Introducción
+
+
+Caso de Estudio
+
+
+Planificación
+
+
+Construcción del Modelo Conceptual
+  4.1. Descripción
+  4.2. Gráfica
+  4.3. Descripción Técnica
+
+
+Construcción del Modelo Lógico
+  5.1. Descripción
+  5.2. Gráfica
+  5.3. Descripción Técnica
+
+
+Normalización del Modelo Lógico
+
+
+Primera Forma Normal (1FN)
+  7.1. Descripción
+  7.2. Gráfica
+  7.3. Descripción Técnica
+
+
+Segunda Forma Normal (2FN)
+  8.1. Descripción
+  8.2. Gráfica
+  8.3. Descripción Técnica
+
+
+Tercera Forma Normal (3FN)
+  9.1. Descripción
+  9.2. Gráfica
+  9.3. Descripción Técnica
+
+
+Construcción del Modelo Físico
+  10.1. Descripción
+  10.2. Código
+  10.3. Descripción Técnica
+
+
+Diagrama E–R
+  11.1. Descripción
+  11.2. Gráfica
+  11.3. Descripción Técnica
+
+
+Tablas
+  12.1. Descripción
+  12.2. Gráfica
+  12.3. Descripción Técnica
+
+
+Relaciones entre Tablas
+  13.1. Descripción
+  13.2. Gráfica
+  13.3. Descripción Técnica
+
+
+Referencias
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Introducción
+Iniciar mi formación en bases de datos ha sido uno de los pasos más importantes dentro del aprendizaje como camper. Comprender cómo se estructuran, almacenan y gestionan los datos me permitió entender lo que realmente ocurre “detrás de escena” en cualquier aplicación o sistema de información.
+Este proyecto tiene como objetivo aplicar los conocimientos de Introducción a las Bases de Datos, a través del diseño y construcción de un modelo relacional para el análisis de muertes accidentales en Colombia durante el período 2015–2024, con datos del Departamento Administrativo Nacional de Estadística (DANE).
+El propósito es crear una solución técnica que permita registrar, almacenar y analizar información sobre víctimas, hechos accidentales y ubicaciones geográficas, mediante un modelo estructurado, aplicando modelado conceptual, lógico y físico, junto con la normalización hasta la tercera forma normal (3FN).
+ De esta manera, se garantiza la integridad, consistencia y eficiencia de los datos para futuros análisis estadísticos y de salud pública.
+Tip: En desarrollo backend, las bases de datos son la base de todo. Antes de programar, piensa en qué datos existen, cómo se relacionan y cómo se consultarán.
+2. Caso de Estudio
+El análisis de muertes accidentales en Colombia representa un desafío para las autoridades de salud pública. Aunque el DANE recopila información, no existe un sistema centralizado que permita hacer análisis profundos sobre las características de las víctimas, circunstancias de los hechos y ubicaciones donde ocurren.
+Problemas identificados:
+Falta de registro centralizado de víctimas.
+
+
+Ausencia de trazabilidad de los hechos accidentales.
+
+
+No existe una integración geográfica eficiente.
+
+
+Redundancia y duplicidad de datos.
+
+
+Solución propuesta:
+ Diseñar una base de datos relacional que centralice la información sobre muertes accidentales, permitiendo una gestión completa del sistema y facilitando análisis epidemiológicos, demográficos y territoriales que apoyen la prevención y formulación de políticas públicas.
+3. Planificación
+Para el desarrollo del proyecto se siguió una planificación estructurada en etapas:
+Análisis del problema: revisión de datos del DANE.
+
+
+Modelo conceptual: identificación de entidades principales (Víctima, HechoAccidental, Ubicación).
+
+
+Modelo lógico: conversión en tablas con claves y relaciones.
+
+
+Normalización: aplicación de 1FN, 2FN y 3FN.
+
+
+Modelo físico: implementación final en MySQL.
+
+
+Cada fase garantizó una base de datos organizada, eficiente y funcional.
+Tip: La planificación es igual de importante que el código. Diseñar primero evita corregir después.
+
+4. Construcción del Modelo Conceptual
+El modelo conceptual define las entidades principales y sus relaciones.
+Entidades:
+Víctima: información demográfica y social (sexo, edad, estado civil, escolaridad, identidad de género).
+
+
+HechoAccidental: fecha, hora, escenario, zona, causa, mecanismo causal.
+
+
+Ubicación: departamento, municipio, localidad, códigos DANE, zona de residencia.
+
+
+Relaciones principales:
+Una Víctima está asociada a un HechoAccidental (1:1).
+
+
+Un HechoAccidental ocurre en una Ubicación (N:1).
+
+
+Una Ubicación puede registrar varios hechos.
+
+
+Tip: Si el modelo conceptual falla, todo el diseño posterior se verá afectado.
+4.2 Gráfica
+
+
+4.3 Descripción Técnica
+El modelo conceptual se elaboró en diagrams.net, representando entidades y relaciones de forma clara. Se definieron los atributos y se establecieron cardinalidades adecuadas antes de la implementación.
+5. Construcción del Modelo Lógico
+Transforma el diseño conceptual en tablas relacionales.
+Tablas principales:
+Victima(id_victima, sexo, grupo_edad, estado_civil, escolaridad, identidad_genero)
+
+
+Ubicacion(id_ubicacion, codigo_dane_depto, departamento, codigo_dane_mun, municipio, localidad)
+
+
+HechoAccidental(id_hecho, fecha, hora, escenario, zona, actividad, causa, id_victima, id_ubicacion)
+
+
+Cada relación usa claves foráneas (FK) para garantizar la integridad.
+Tip: Las claves foráneas son el pegamento que une toda tu base de datos.
+5.2 Gráfica
+
+5.3 Descripción Técnica
+Se definieron PK, FK y restricciones de integridad. Se aplicaron reglas de negocio:
+Cada víctima tiene un identificador único.
+
+
+No hay hechos accidentales sin víctima.
+
+
+Cada hecho tiene una ubicación válida.
+
+
+6. Normalización del Modelo Lógico
+La normalización eliminó redundancias y garantizó la coherencia del modelo.
+ Se aplicaron 1FN, 2FN y 3FN para mantener integridad y consistencia en los datos.
+Tip: Normalizar no es llenar teoría: es garantizar que tu base de datos nunca se contradiga.
+
+7. Primera Forma Normal (1FN)
+Objetivo: asegurar que cada columna contenga un valor único y atómico.
+Antes: campos con valores combinados (ej. “Bogotá, Cundinamarca”).
+ Después: datos separados por campo (departamento, municipio, zona).
+Resultado:
+ Cada celda almacena un único valor → estructura atómica.
+(Figura 3: Datos normalizados en 1FN)
+8. Segunda Forma Normal (2FN)
+Objetivo: eliminar dependencias parciales.
+Solución aplicada:
+ Separar la información de Ubicación en una tabla independiente y relacionarla con HechoAccidental mediante FK.
+Resultado:
+ No hay repetición de datos geográficos, estructura más flexible y coherente.
+9. Tercera Forma Normal (3FN)
+Objetivo: eliminar dependencias transitivas.
+Análisis:
+ Todos los campos dependen directamente de su PK.
+ Se mantuvieron ambos códigos DANE por razones estadísticas, pero sin redundancia estructural.
+Resultado:
+ La base de datos cumple con la Tercera Forma Normal y garantiza integridad total.
+10. Construcción del Modelo Físico
+10.1 Descripción
+Traducción del diseño teórico a código SQL funcional en MySQL.
+ Incluye creación de tablas, PK, FK y tipos de datos.
+10.2 Código
+DROP DATABASE IF EXISTS MuertesAccidentalesColombia;
+CREATE DATABASE MuertesAccidentalesColombia;
+USE MuertesAccidentalesColombia;
+
+CREATE TABLE Victima (
+    id_victima INT AUTO_INCREMENT PRIMARY KEY,
+    sexo VARCHAR(20),
+    grupo_edad VARCHAR(50),
+    estado_civil VARCHAR(50),
+    escolaridad VARCHAR(100),
+    identidad_genero VARCHAR(50)
+);
+
+CREATE TABLE Ubicacion (
+    id_ubicacion INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_dane_departamento VARCHAR(10),
+    departamento VARCHAR(100),
+    codigo_dane_municipio VARCHAR(10),
+    municipio VARCHAR(100),
+    localidad VARCHAR(100)
+);
+
+CREATE TABLE HechoAccidental (
+    id_hecho INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    escenario VARCHAR(100),
+    zona VARCHAR(50),
+    actividad VARCHAR(100),
+    causa VARCHAR(100),
+    id_victima INT,
+    id_ubicacion INT,
+    FOREIGN KEY (id_victima) REFERENCES Victima(id_victima)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_ubicacion) REFERENCES Ubicacion(id_ubicacion)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+10.3 Descripción Técnica
+El modelo se implementó en MySQL Workbench, aplicando integridad referencial y tipos adecuados (VARCHAR, DATE, TIME).
+ Se probaron inserciones y consultas exitosamente.
+
+11. Diagrama E–R
+Representa gráficamente las entidades y relaciones del sistema.
+Una víctima ↔ un hecho accidental (1:1)
+
+
+Un hecho ↔ una ubicación (N:1)
+
+
+(Figura 4: Diagrama E–R del Sistema de Muertes Accidentales – StarUML)
+
+12. Tablas
+Tabla: Victima
+Campo
+Tipo
+Descripción
+id_victima
+INT (PK)
+Identificador único
+sexo
+VARCHAR(20)
+Sexo de la víctima
+grupo_edad
+VARCHAR(50)
+Grupo etario
+estado_civil
+VARCHAR(50)
+Estado civil
+escolaridad
+VARCHAR(100)
+Nivel educativo
+identidad_genero
+VARCHAR(50)
+Identidad de género
+
+Tabla: Ubicacion
+ | id_ubicacion | INT (PK) | Identificador único |
+ | codigo_dane_departamento | VARCHAR(10) | Código DANE |
+ | departamento | VARCHAR(100) | Nombre del departamento |
+ | municipio | VARCHAR(100) | Municipio del hecho |
+ | localidad | VARCHAR(100) | Localidad específica |
+Tabla: HechoAccidental
+ | id_hecho | INT (PK) | Identificador del hecho |
+ | fecha | DATE | Fecha del accidente |
+ | hora | TIME | Hora del accidente |
+ | escenario | VARCHAR(100) | Lugar del hecho |
+ | zona | VARCHAR(50) | Urbana/Rural |
+ | actividad | VARCHAR(100) | Actividad durante el hecho |
+ | causa | VARCHAR(100) | Causa del accidente |
+ | id_victima | INT (FK) | Referencia a Victima |
+ | id_ubicacion | INT (FK) | Referencia a Ubicacion |
+
+13. Relaciones entre Tablas
+1:1 → Víctima ↔ HechoAccidental
+ N:1 → HechoAccidental ↔ Ubicación
+Las relaciones se establecieron mediante FOREIGN KEY con integridad referencial activa.
+
+14. Referencias
+DANE (2024). Estadísticas Vitales: Muertes Accidentales en Colombia 2015–2024.
+
+
+Oracle Corporation (2025). MySQL Reference Manual.
+
+
+Campuslands (2025). Guía de Ejercicio de Bases de Datos – Ruta Java.
+
+
+
+
+
+
+
+
